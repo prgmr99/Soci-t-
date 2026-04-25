@@ -122,23 +122,43 @@ function HeroSection() {
   );
 }
 
+// Static editorial copy. Hoisted to module scope so the array isn't
+// re-allocated on every render — also keeps the page component declarative.
+const MANIFESTO_STANZAS = [
+  {
+    id: "stanza-1",
+    text: "당신의 서가는 당신의 사고의 지형도다. 우리는 서로의 지형을 마주 볼 자격이 있는 사람들을 모은다. 취향이 아니라 사유의 깊이로 선별된 공동체—그것이 소시에테의 출발점이다.",
+  },
+  {
+    id: "stanza-2",
+    text: "독서는 본래 고독한 행위지만, 고독이 충돌할 때 무언가가 생겨난다. 우리는 그 충돌을 설계한다. 당신이 밑줄 친 문장이 누군가의 다음 질문이 되는 공간. 그 마찰 안에서 생각은 단단해진다.",
+  },
+  {
+    id: "stanza-3",
+    text: "문을 두드리는 것은 지원서가 아니다. 당신이 지금까지 쌓아온 사고의 궤적이다. 소시에테는 결제 정보 대신 에세이 한 편을 먼저 요구한다. 입장권은 언제나 글로 발행된다.",
+  },
+] as const;
+
+const CURATION_PRINCIPLES = [
+  {
+    numeral: "I.",
+    title: "게이트",
+    body: "심사는 결제보다 먼저다. 에세이로 문을 두드려라. 우리는 당신의 카드 번호보다 당신의 문장을 먼저 읽는다.",
+  },
+  {
+    numeral: "II.",
+    title: "아카이브",
+    body: "당신의 발제문과 서재가 포트폴리오처럼 축적된다. 매 시즌이 지나도 당신의 사유는 기록으로 남는다.",
+  },
+  {
+    numeral: "III.",
+    title: "오케스트레이션",
+    body: "보이지 않는 컨시어지가 당신의 독서 성향을 매칭한다. 취향 데이터가 아니라 발제 이력이 기준이다.",
+  },
+] as const;
+
 // ── Section: Manifesto ────────────────────────────────────────────────────────
 function ManifestoSection() {
-  const stanzas = [
-    {
-      id: "stanza-1",
-      text: "당신의 서가는 당신의 사고의 지형도다. 우리는 서로의 지형을 마주 볼 자격이 있는 사람들을 모은다. 취향이 아니라 사유의 깊이로 선별된 공동체—그것이 소시에테의 출발점이다.",
-    },
-    {
-      id: "stanza-2",
-      text: "독서는 본래 고독한 행위지만, 고독이 충돌할 때 무언가가 생겨난다. 우리는 그 충돌을 설계한다. 당신이 밑줄 친 문장이 누군가의 다음 질문이 되는 공간. 그 마찰 안에서 생각은 단단해진다.",
-    },
-    {
-      id: "stanza-3",
-      text: "문을 두드리는 것은 지원서가 아니다. 당신이 지금까지 쌓아온 사고의 궤적이다. 소시에테는 결제 정보 대신 에세이 한 편을 먼저 요구한다. 입장권은 언제나 글로 발행된다.",
-    },
-  ];
-
   return (
     <SectionFrame id="manifesto" tone="paper-soft">
       <div className="mb-14">
@@ -149,7 +169,7 @@ function ManifestoSection() {
       </div>
 
       <div className="grid gap-12 md:grid-cols-3 md:gap-10">
-        {stanzas.map((stanza, i) => (
+        {MANIFESTO_STANZAS.map((stanza, i) => (
           <div key={stanza.id} className="flex flex-col gap-4">
             <Typo.Meta as="span" className="text-brass-strong">
               {String(i + 1).padStart(2, "0")}
@@ -166,24 +186,6 @@ function ManifestoSection() {
 
 // ── Section: Curation Principles ─────────────────────────────────────────────
 function PrinciplesSection() {
-  const principles = [
-    {
-      numeral: "I.",
-      title: "게이트",
-      body: "심사는 결제보다 먼저다. 에세이로 문을 두드려라. 우리는 당신의 카드 번호보다 당신의 문장을 먼저 읽는다.",
-    },
-    {
-      numeral: "II.",
-      title: "아카이브",
-      body: "당신의 발제문과 서재가 포트폴리오처럼 축적된다. 매 시즌이 지나도 당신의 사유는 기록으로 남는다.",
-    },
-    {
-      numeral: "III.",
-      title: "오케스트레이션",
-      body: "보이지 않는 컨시어지가 당신의 독서 성향을 매칭한다. 취향 데이터가 아니라 발제 이력이 기준이다.",
-    },
-  ];
-
   return (
     <SectionFrame tone="paper">
       <div className="mb-14">
@@ -194,7 +196,7 @@ function PrinciplesSection() {
       </div>
 
       <div className="grid gap-8 md:grid-cols-3 md:gap-10">
-        {principles.map((p) => (
+        {CURATION_PRINCIPLES.map((p) => (
           <article
             key={p.numeral}
             className="flex flex-col gap-5 border border-brass/25 bg-paper-soft p-8"
