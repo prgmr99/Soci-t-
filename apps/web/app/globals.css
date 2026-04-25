@@ -98,6 +98,34 @@ body {
   animation: fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.45s both;
 }
 
+.animate-fade-up-delay-4 {
+  animation: fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.6s both;
+}
+
+/* ── Brass hairline draws in horizontally (page-entry signature) ── */
+@keyframes hairline-draw {
+  from {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+.animate-hairline-draw {
+  animation: hairline-draw 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+  transform-origin: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-hairline-draw {
+    animation: none;
+    transform: none;
+  }
+}
+
 /* ── Scroll-triggered reveal (used by <Reveal>) ── */
 .reveal {
   opacity: 0;

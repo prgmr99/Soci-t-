@@ -41,8 +41,12 @@ const variantClasses: Record<ButtonVariant, string> = {
 // strengthened 17px body copy. 3px radius removes the harsh corner while
 // keeping the architectural/editorial silhouette — beyond ~6px reads as
 // consumer SaaS.
+// `transform` is included in the transition so the active-press scale eases
+// rather than snaps. The press itself (active:scale-[0.985]) gives a tactile
+// "weight" to the CTA without breaking the editorial silhouette — anything
+// more aggressive (≤0.95) reads as a consumer app.
 const baseClasses =
-  "inline-flex items-center justify-center gap-2 rounded-[3px] tracking-[0.08em] uppercase font-sans font-semibold transition-[background-color,box-shadow,border-color,color] duration-200 outline-none cursor-pointer select-none";
+  "inline-flex items-center justify-center gap-2 rounded-[3px] tracking-[0.08em] uppercase font-sans font-semibold transition-[background-color,box-shadow,border-color,color,transform] duration-200 ease-out outline-none cursor-pointer select-none will-change-transform active:scale-[0.985] motion-reduce:transition-none motion-reduce:active:scale-100";
 
 // Default min-h-12 (48px) clears the 44pt touch target. `lg` is for terminal
 // CTAs (apply, sign up) where the button has to carry weight against a
