@@ -1,0 +1,11 @@
+node_modules
+.next
+.env*
+*.tsbuildinfo
+dist
+.DS_Store
+.pnpm-store
+apps/web/.data
+
+/.omc
+/.claude

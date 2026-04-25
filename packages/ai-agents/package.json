@@ -1,0 +1,17 @@
+{
+  "name": "@societe/ai-agents",
+  "type": "module",
+  "version": "0.0.1",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "types": "./src/index.ts",
+  "sideEffects": false,
+  "scripts": {
+    "build": "echo 'Phase 2 placeholder'",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5.6"
+  }
+}

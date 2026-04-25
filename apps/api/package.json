@@ -1,0 +1,9 @@
+{
+  "name": "@societe/api",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "echo 'Phase 2 placeholder'",
+    "typecheck": "echo 'Phase 2 placeholder'"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "@societe/db",
+  "type": "module",
+  "version": "0.0.1",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "types": "./src/index.ts",
+  "sideEffects": false,
+  "scripts": {
+    "build": "echo 'Source-only package'",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5.6"
+  }
+}

@@ -1,0 +1,99 @@
+@import "tailwindcss";
+
+/* Tailwind v4 only auto-scans the current package by default. The shared UI
+   package (SectionFrame, Typo, Button…) lives outside apps/web, so utilities
+   used exclusively there (e.g. py-20 in SectionFrame) silently fall back to
+   the universal `padding: 0` reset and collapse every section. */
+@source "../../../packages/ui/src/**/*.{ts,tsx}";
+
+:root {
+  --color-ink: #0b0b0c;
+  --color-paper: #f8f6f1;
+  --color-paper-soft: #efece4;
+
+  /* Brass: decorative gold for hairlines & accents. */
+  --color-brass: #9a7d3d;
+  /* Brass-strong: deeper, AA-readable variant for small text labels. */
+  --color-brass-strong: #7a5e26;
+
+  /* Muted: primary secondary-text color. Strengthened from #6c6a66 (~4.7:1)
+     to ~7.5:1 for confident readability while staying refined. */
+  --color-muted: #4a4845;
+  /* Subtle: explicit token for truly decorative metadata so we stop stacking
+     opacity reductions on muted (which produced near-unreadable text). */
+  --color-subtle: #7a7770;
+
+  /* Font variables are injected by next/font via HTML class attributes.
+     Fallbacks here cover SSR flash before hydration.
+     Korean serif/sans fall through after the Latin face so a single
+     CSS rule (font-family: var(--font-serif)) works for mixed Korean
+     and Latin text — the browser picks the matching face per glyph. */
+  --font-serif: var(--font-fraunces, "Fraunces"), var(--font-serif-kr, "Noto Serif KR"), "Cormorant Garamond", "Apple SD Gothic Neo", Georgia, serif;
+  --font-sans: var(--font-geist, "Geist"), var(--font-sans-kr, "Noto Sans KR"), system-ui, -apple-system, "Apple SD Gothic Neo", sans-serif;
+  --font-mono: var(--font-jetbrains-mono, "JetBrains Mono"), ui-monospace, monospace;
+}
+
+@theme inline {
+  --color-ink: var(--color-ink);
+  --color-paper: var(--color-paper);
+  --color-paper-soft: var(--color-paper-soft);
+  --color-brass: var(--color-brass);
+  --color-brass-strong: var(--color-brass-strong);
+  --color-muted: var(--color-muted);
+  --color-subtle: var(--color-subtle);
+  --font-serif: var(--font-serif);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+html,
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+body {
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "ss02";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* ── Hero fade-up animation (CSS-only, no JS) ── */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-fade-up-delay-1 {
+  animation: fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+}
+
+.animate-fade-up-delay-2 {
+  animation: fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
+}
+
+.animate-fade-up-delay-3 {
+  animation: fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.45s both;
+}
