@@ -7,5 +7,6 @@ dist
 .pnpm-store
 apps/web/.data
 
-/.omc
-/.claude
+.omc
+.claude
+

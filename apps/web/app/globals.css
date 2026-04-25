@@ -97,3 +97,49 @@ body {
 .animate-fade-up-delay-3 {
   animation: fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.45s both;
 }
+
+/* ── Scroll-triggered reveal (used by <Reveal>) ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(1.5rem);
+  transition:
+    opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.reveal[data-shown="true"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ── Hero "Scroll ↓" gentle nudge ── */
+@keyframes scroll-nudge {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(0.25rem);
+    opacity: 1;
+  }
+}
+
+.animate-scroll-nudge {
+  animation: scroll-nudge 2.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-scroll-nudge {
+    animation: none;
+  }
+}

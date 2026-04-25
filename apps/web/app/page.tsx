@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { BRAND } from "@societe/config";
 import { Button } from "@societe/ui";
 import { SectionFrame } from "@societe/ui";
 import { Typo } from "@societe/ui";
+import { Reveal } from "./components/Reveal";
+import { ScrollProgress } from "./components/ScrollProgress";
 
 export const dynamic = "force-static";
 
@@ -40,9 +43,13 @@ function HeroSection() {
     >
       {/* Top row: wordmark + edition number */}
       <div className="flex items-center justify-between">
-        <p className="font-serif text-lg tracking-[-0.01em] text-ink">
+        <Link
+          href="/"
+          aria-label={`${BRAND.name} — 홈`}
+          className="font-serif text-lg tracking-[-0.01em] text-ink underline-offset-4 transition-colors hover:text-brass-strong focus-visible:underline"
+        >
           Société
-        </p>
+        </Link>
         <Typo.Meta as="p" className="tabular-nums">
           N° 001 / 2026
         </Typo.Meta>
@@ -113,7 +120,7 @@ function HeroSection() {
 
       {/* Bottom micro-label — new info (location + editorial framing) */}
       <div className="animate-fade-up-delay-3 flex items-end justify-between">
-        <Typo.Meta as="p" className="text-subtle">
+        <Typo.Meta as="p" className="animate-scroll-nudge text-subtle">
           Scroll ↓
         </Typo.Meta>
         <Typo.Meta as="p">서울 · 창간호</Typo.Meta>
@@ -161,23 +168,25 @@ const CURATION_PRINCIPLES = [
 function ManifestoSection() {
   return (
     <SectionFrame id="manifesto" tone="paper-soft">
-      <div className="mb-14">
+      <Reveal className="mb-14">
         <Typo.Meta as="p" className="mb-4 text-brass-strong">
           매니페스토
         </Typo.Meta>
         <BrassDivider />
-      </div>
+      </Reveal>
 
       <div className="grid gap-12 md:grid-cols-3 md:gap-10">
         {MANIFESTO_STANZAS.map((stanza, i) => (
-          <div key={stanza.id} className="flex flex-col gap-4">
-            <Typo.Meta as="span" className="text-brass-strong">
-              {String(i + 1).padStart(2, "0")}
-            </Typo.Meta>
-            <p className="font-serif text-[1.125rem] leading-[1.7] text-ink">
-              {stanza.text}
-            </p>
-          </div>
+          <Reveal key={stanza.id} delay={i * 120}>
+            <div className="flex flex-col gap-4">
+              <Typo.Meta as="span" className="text-brass-strong">
+                {String(i + 1).padStart(2, "0")}
+              </Typo.Meta>
+              <p className="font-serif text-[1.125rem] leading-[1.7] text-ink">
+                {stanza.text}
+              </p>
+            </div>
+          </Reveal>
         ))}
       </div>
     </SectionFrame>
@@ -188,30 +197,29 @@ function ManifestoSection() {
 function PrinciplesSection() {
   return (
     <SectionFrame tone="paper">
-      <div className="mb-14">
+      <Reveal className="mb-14">
         <Typo.Meta as="p" className="mb-4 text-brass-strong">
           큐레이션 원칙
         </Typo.Meta>
         <BrassDivider />
-      </div>
+      </Reveal>
 
       <div className="grid gap-8 md:grid-cols-3 md:gap-10">
-        {CURATION_PRINCIPLES.map((p) => (
-          <article
-            key={p.numeral}
-            className="flex flex-col gap-5 border border-brass/25 bg-paper-soft p-8"
-          >
-            <Typo.Meta as="span" className="font-mono text-brass-strong">
-              {p.numeral}
-            </Typo.Meta>
-            <Typo.Title as="h3" className="text-[1.5rem] text-ink">
-              {p.title}
-            </Typo.Title>
-            <BrassDivider />
-            <Typo.Body as="p" className="text-[1rem] leading-[1.7]">
-              {p.body}
-            </Typo.Body>
-          </article>
+        {CURATION_PRINCIPLES.map((p, i) => (
+          <Reveal key={p.numeral} delay={i * 120}>
+            <article className="flex h-full flex-col gap-5 border border-brass/25 bg-paper-soft p-8">
+              <Typo.Meta as="span" className="font-mono text-brass-strong">
+                {p.numeral}
+              </Typo.Meta>
+              <Typo.Title as="h3" className="text-[1.5rem] text-ink">
+                {p.title}
+              </Typo.Title>
+              <BrassDivider />
+              <Typo.Body as="p" className="text-[1rem] leading-[1.7]">
+                {p.body}
+              </Typo.Body>
+            </article>
+          </Reveal>
         ))}
       </div>
     </SectionFrame>
@@ -222,18 +230,20 @@ function PrinciplesSection() {
 function SeasonSection() {
   return (
     <SectionFrame tone="ink">
-      <div className="flex flex-col items-center gap-6 py-8 text-center">
-        <Typo.Meta as="p" className="text-paper/75">
-          시즌 안내
-        </Typo.Meta>
-        <p className="font-mono text-[0.95rem] tracking-[0.16em] uppercase text-paper">
-          2026년 봄 시즌 · 첫 멤버 모집 中
-        </p>
-        <div className="h-px w-16 bg-brass/70" aria-hidden="true" />
-        <Typo.Meta as="p" className="text-paper/65">
-          정원 엄수 · 심사 후 초청
-        </Typo.Meta>
-      </div>
+      <Reveal>
+        <div className="flex flex-col items-center gap-6 py-8 text-center">
+          <Typo.Meta as="p" className="text-paper/75">
+            시즌 안내
+          </Typo.Meta>
+          <p className="font-mono text-[0.95rem] tracking-[0.16em] uppercase text-paper">
+            2026년 봄 시즌 · 첫 멤버 모집 中
+          </p>
+          <div className="h-px w-16 bg-brass/70" aria-hidden="true" />
+          <Typo.Meta as="p" className="text-paper/65">
+            정원 엄수 · 심사 후 초청
+          </Typo.Meta>
+        </div>
+      </Reveal>
     </SectionFrame>
   );
 }
@@ -245,28 +255,30 @@ function CtaSection() {
       {/* Full-width hairline frame matches Manifesto / Principles sections;
           the closing CTA stays anchored to the same editorial grid instead
           of floating as a centered island. */}
-      <div className="mb-14">
+      <Reveal className="mb-14">
         <Typo.Meta as="p" className="mb-4 text-brass-strong">
           멤버십 심사
         </Typo.Meta>
         <BrassDivider />
-      </div>
+      </Reveal>
 
-      <div className="flex flex-col items-center gap-10 py-8 text-center">
-        <Typo.Display as="h2" className="max-w-3xl text-ink">
-          문을 두드리시겠습니까?
-        </Typo.Display>
+      <Reveal delay={120}>
+        <div className="flex flex-col items-center gap-10 py-8 text-center">
+          <Typo.Display as="h2" className="max-w-3xl text-ink">
+            문을 두드리시겠습니까?
+          </Typo.Display>
 
-        <p className="max-w-md break-keep font-sans text-[1.0625rem] leading-[1.7] text-ink/85">
-          심사는 에세이 한 편으로 시작됩니다.
-          <br />
-          결제 전에 당신의 사유를 먼저 보여주세요.
-        </p>
+          <p className="max-w-md break-keep font-sans text-[1.0625rem] leading-[1.7] text-ink/85">
+            심사는 에세이 한 편으로 시작됩니다.
+            <br />
+            결제 전에 당신의 사유를 먼저 보여주세요.
+          </p>
 
-        <Button variant="primary" size="lg" href="/apply">
-          심사 신청
-        </Button>
-      </div>
+          <Button variant="primary" size="lg" href="/apply">
+            심사 신청
+          </Button>
+        </div>
+      </Reveal>
     </SectionFrame>
   );
 }
@@ -277,9 +289,13 @@ function Footer() {
     <footer className="w-full border-t border-brass/30 bg-paper px-6 py-10 md:px-12 lg:px-16">
       <div className="mx-auto flex w-full max-w-[1200px] flex-col items-start gap-6 md:flex-row md:items-center md:justify-between">
         {/* Wordmark */}
-        <p className="font-serif text-lg tracking-[-0.01em] text-ink">
+        <Link
+          href="/"
+          aria-label={`${BRAND.name} — 홈`}
+          className="font-serif text-lg tracking-[-0.01em] text-ink underline-offset-4 transition-colors hover:text-brass-strong focus-visible:underline"
+        >
           {BRAND.name}
-        </p>
+        </Link>
 
         {/* Contact */}
         <Typo.Meta as="p" className="text-muted">
@@ -304,6 +320,7 @@ function Footer() {
 export default function HomePage() {
   return (
     <>
+      <ScrollProgress />
       <HeroSection />
       <ManifestoSection />
       <PrinciplesSection />
