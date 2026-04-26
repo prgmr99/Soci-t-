@@ -7,6 +7,11 @@ dist
 .pnpm-store
 apps/web/.data
 
+coverage
+playwright-report
+test-results
+.playwright
+
 .omc
 .claude
 
