@@ -21,10 +21,12 @@ test("five-step apply wizard submits and redirects with a serial", async ({
   await page.goto("/apply");
 
   // ── Step I: 기본 정보 ────────────────────────────────────────────────────
-  await page.getByLabel("이름").fill("Playwright 테스터");
-  await page.getByLabel("이메일").fill(email);
-  await page.getByLabel("현재 역할").fill("QA Engineer");
-  await page.getByLabel("산업").fill("핀테크");
+  // Field.Text doesn't wire <label htmlFor> to the input id, so getByLabel
+  // can't match. Placeholder text is unique per field on this step.
+  await page.getByPlaceholder("홍길동").fill("Playwright 테스터");
+  await page.getByPlaceholder("you@example.com").fill(email);
+  await page.getByPlaceholder("프로덕트 디자이너").fill("QA Engineer");
+  await page.getByPlaceholder("핀테크").fill("핀테크");
   await page.getByRole("button", { name: "다음" }).click();
 
   // ── Step II: 에세이 I ────────────────────────────────────────────────────
